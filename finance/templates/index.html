@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <h1> Your Portfolio</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">Name</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">Cash</th>
+                <th scope="col">Total</th>
+                <th scope="col"> Buy</th>
+                <th scope="col"> Sell</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for stock in stocks %}
+                <tr>
+                    <td>{{ stock.symbol }}</td>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.total_shares }}</td>
+                    <td>{{ stock.price |usd }}</td>
+                    <td>{{ stock.total_value |usd }}</td>
+                    <td colspan="1"></td>
+                    <td>
+                        <form action="{{ url_for('buy') }}" method="post"
+                            class="d-flex align-items-center">
+                            <input type="number" class="form-control mr-2" name="shares"
+                                placeholder="Shares" min="1" required>
+                            <input type="hidden" name="symbol" value="{{ stock.symbol }}">
+                            <button class="btn btn-primary" type="submit">Buy</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="{{ url_for('sell') }}" method="post"
+                            class="d-flex align-items-center">
+                            <input type="number" class="form-control mr-2" name="shares"
+                                placeholder="Shares" min="1" required>
+                            <input type="hidden" name="symbol" value="{{ stock.symbol }}">
+                            <button class="btn btn-danger" type="submit">Sell</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4"></td>
+                <td>{{ cash }}</td>
+                <td>{{ total_portfolio_value }}</td>
+            </tr>
+        </tbody>
+
+
+
+{% endblock %}

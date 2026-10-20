@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quoted
+{% endblock %}
+
+{% block main %}
+    <div class="card mx-auto" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{ name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ symbol }}</h6>
+            <p class="card-text">${{ price }}</p>
+        </div>
+    </div>
+{% endblock %}
